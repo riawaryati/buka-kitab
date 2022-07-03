@@ -5,25 +5,28 @@ import (
 	"github.com/buka-kitab/backend/handlers/core/authorization"
 	"github.com/buka-kitab/backend/handlers/core/master"
 	"github.com/buka-kitab/backend/handlers/core/order"
+	"github.com/buka-kitab/backend/handlers/core/product"
 	"github.com/buka-kitab/backend/handlers/core/user"
 	"github.com/buka-kitab/backend/usecase"
 	"github.com/sirupsen/logrus"
 )
 
 type Handler struct {
-	Token  authorization.TokenHandler
-	Public authorization.PublicHandler
-	Master master.MasterHandler
-	User   user.UserHandler
-	Order  order.OrderHandler
+	Token   authorization.TokenHandler
+	Public  authorization.PublicHandler
+	Master  master.MasterHandler
+	User    user.UserHandler
+	Order   order.OrderHandler
+	Product product.ProductHandler
 }
 
 func NewHandler(uc usecase.Usecase, conf *general.SectionService, logger *logrus.Logger) Handler {
 	return Handler{
-		Token:  authorization.NewTokenHandler(conf, logger),
-		Public: authorization.NewPublicHandler(conf, logger),
-		Master: master.NewHandler(uc, conf, logger),
-		User:   user.NewHandler(uc, conf, logger),
-		Order:  order.NewHandler(uc, conf, logger),
+		Token:   authorization.NewTokenHandler(conf, logger),
+		Public:  authorization.NewPublicHandler(conf, logger),
+		Master:  master.NewHandler(uc, conf, logger),
+		User:    user.NewHandler(uc, conf, logger),
+		Order:   order.NewHandler(uc, conf, logger),
+		Product: product.NewHandler(uc, conf, logger),
 	}
 }
